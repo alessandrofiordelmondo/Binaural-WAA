@@ -1,0 +1,32 @@
+body{
+    background-color: 	black;
+}
+#room {
+    position:		fixed;
+    bottom:		10px;
+    top:		100px;
+    right:		10px;
+    left:		10px;
+    background: 	#00aabb;
+ }
+
+.sound {
+    height:		100px;
+    width:		100px;
+ }
+
+#s1{
+    background:	#ff0000;
+}
+
+#s2{
+    background-color:	#ffaa00;
+}
+
+#s3{
+    background-color:	#aaff00;
+}
+
+#s4{
+    background-color:	#00ff00;
+}

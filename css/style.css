@@ -1,32 +1,66 @@
 body{
+    font-family: 	"Courier New", monospace;
+    font-size:		10px;
     background-color: 	black;
 }
+#txt1{
+    color:		white;
+}
+.inputDiv{
+    position:		relative;
+    width:		200px;
+    height:		50px;
+    margin:		5px;
+}
+#i1{
+    background-color:	#ff0000;
+}
+#i2{
+    background-color:	#ffaa00;
+}
+#i3{
+    background-color:	#aaff00;
+}
+#i4{
+    background-color:	#00ff00;
+}
 #room {
-    position:		fixed;
-    bottom:		10px;
-    top:		100px;
-    right:		10px;
-    left:		10px;
+    position: 		absolute;
+    margin: 		auto;
+    top: 		100px;
+    right: 		0;
+    bottom: 		10px;
+    left: 		0;
     background: 	#00aabb;
+    float:		right;
  }
 
 .sound {
-    height:		100px;
-    width:		100px;
+    position:		absolute;
+    cursor:		move;
  }
 
 #s1{
-    background:	#ff0000;
+    border:		1px solid #000000;
+    background-color:	#ff0000;
 }
 
 #s2{
+    border:		1px solid #000000;
     background-color:	#ffaa00;
 }
 
 #s3{
+    border:		1px solid #000000;
     background-color:	#aaff00;
 }
 
 #s4{
+    border:		1px solid #000000;
     background-color:	#00ff00;
+}
+
+#head{
+    opacity:		1;
+
 }

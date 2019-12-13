@@ -1,10 +1,11 @@
 var roomSize;
 var headDeg = 0;
-//function for resize the square implement\ed
+//resize the size of the object
 function resizeSquare(div, px){
     $(div).height(px);
     $(div).width(px);
 }
+//reset the position of the object
 function resetPosition(div, scale){
     var divLeft = $(div).position().left * scale;
     var divTop = $(div).position().top * scale;
@@ -59,7 +60,7 @@ function objectMov(div, visualSel = true, rotate = false){
 	e.cancelBubble = true;
     })
 }
-//Rotate image
+//Rotate object (only fo the head)
 function objectRot(div, degree){
    $({degrees: degree}).animate({degrees: degree}, {
 	duration: 2000,
@@ -70,45 +71,11 @@ function objectRot(div, degree){
 	}
     });
 }
-$(document).ready(function(){
-    resizeSquare('#room', $(window).height() -110);
-    var roomSize = $("#room").width()  
-    console.log(roomSize);
-    resizeSquare('.sound', $("#room").height()/10);
-    // inizialize with random position for the sound object
-    $("#s1").css(
-	{'left': Math.random()*($("#room").width()-$("#s1").width()) + 'px', 
-	'top':Math.random()*($("#room").height()-$("#s1").height()) + 'px'}
-    )
-    $("#s2").css(
-	{'left': Math.random()*($("#room").width()-$("#s2").width()) + 'px', 
-	'top':Math.random()*($("#room").height()-$("#s2").height()) + 'px'}
-    )
-    $("#s3").css(
-	{'left': Math.random()*($("#room").width()-$("#s3").width()) + 'px', 
-	'top':Math.random()*($("#room").height()-$("#s3").height()) + 'px'}
-    )
-    $("#s4").css(
-	{'left': Math.random()*($("#room").width()-$("#s4").width()) + 'px', 
-	'top':Math.random()*($("#room").height()-$("#s4").height()) + 'px'}
-    )
-    $("#head").css(
-	{'left':$("#room").width()/2 + 'px', 
-	'top':$("#room").height()/2 + 'px'}
-    )
-	
-    objectMov('#s1');
-    objectMov('#s2');
-    objectMov('#s3');
-    objectMov('#s4');
-    objectMov('#head', false, true);
-})
-
+//object size and position reset in the resizing of the main window
 $(window).resize(function(){
     var wH = $(this).height()  
     var rH = $('#room').height();
     var scale = rH/roomSize;
-    console.log(rH, scale)
     resizeSquare('#room', wH - 110);
     resizeSquare('.sound', rH/10);
     resetPosition("#s1", scale);
@@ -117,5 +84,4 @@ $(window).resize(function(){
     resetPosition("#s4", scale);
     resetPosition("#head", scale);
     roomSize = rH;
-    
 })

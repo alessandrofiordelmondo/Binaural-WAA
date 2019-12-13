@@ -15,10 +15,38 @@
 	    <b>a</b> to rotate the head on the left <br> 
 	    <b>b</b> to rotate the head on the right <br>
 	</p> 
-	<div class="inputDiv" id="i1"><input type="file" id="openfile1"/></div>
-	<div class="inputDiv" id="i2"><input type="file" id="openfile2"/></div>
-	<div class="inputDiv" id="i3"><input type="file" id="openfile3"/></div>
-	<div class="inputDiv" id="i4"><input type="file" id="openfile4"/></div>
+	<div class="inputDiv" id="i1"><input type="file" id="openfile1" 
+	    onchange="
+		if(sounds[0] != undefined){
+		    sounds[0].inputFile = this.files;
+		    fromInputAudioLoader(sounds[0].inputFile, sounds[0].sound, sounds[0].audioContext);
+		} else {
+		    sounds[0] = new Sound(this.files, audioContext);
+		}"/></div>
+	<div class="inputDiv" id="i2"><input type="file" id="openfile2"
+	    onchange="
+		if(sounds[1] != undefined){
+		    sounds[1].inputFile = this.files;
+		    fromInputAudioLoader(sounds[1].inputFile, sounds[1].sound, sounds[1].audioContext);
+		} else {
+		    sounds[1] = new Sound(this.files, audioContext);
+		}"/></div>
+	<div class="inputDiv" id="i3"><input type="file" id="openfile3"
+	    onchange="
+		if(sounds[2] != undefined){
+		    sounds[2].inputFile = this.files;
+		    fromInputAudioLoader(sounds[2].inputFile, sounds[2].sound, sounds[2].audioContext);
+		} else {
+		    sounds[2] = new Sound(this.files, audioContext);
+		}"/></div>
+	<div class="inputDiv" id="i4"><input type="file" id="openfile4"
+	    onchange="
+		if(sounds[3] != undefined){
+		    sounds[3].inputFile = this.files;
+		    fromInputAudioLoader(sounds[3].inputFile, sounds[3].sound, sounds[3].audioContext);
+		} else {
+		    sounds[3] = new Sound(this.files, audioContext);
+		}"/></div>
 	<!--main div-->
 	<div id="room">
 	    <div class="sound" id="s1"></div>

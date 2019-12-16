@@ -21,9 +21,10 @@ function getSound(obj, uploadedFile){
 }
 
 $(document).ready(function(){
-    resizeSquare('#room', $(window).height() -110);
+    resizeSquare('#room', $(window).height-110);
     var roomSize = $("#room").width()  
     resizeSquare('.sound', $("#room").height()/10);
+    resizeSquare('#head', $("#room").height()/10);
     // inizialize with random position for the sound object
     $("#s1").css(
 	{'left': Math.random()*($("#room").width()-$("#s1").width()) + 'px', 

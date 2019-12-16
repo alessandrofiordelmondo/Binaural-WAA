@@ -61,6 +61,8 @@ body{
 }
 
 #head{
+    position:		absolute;
+    cursor:		move;
     opacity:		1;
 
 }

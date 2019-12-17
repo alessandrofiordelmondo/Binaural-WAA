@@ -11,17 +11,21 @@ function getHRTFs(arrayObject, phpLoader = "./php/get_file.php", hrtfDirectory =
 	var threshElements = 0;
 	$.each(data, function(i, url){
 	   if(![".", "..", ".DS_Store"].includes(url)){
-		var j = i - threshElements;
-		arrayObject[j] = new Convolver(j, hrtfDirectory+url, audioContext);
+		var indicator = /\_A_.*?\d/.exec(url)[0][3];
+		var position = parseFloat(/\d{3}/.exec(url)[0]);
+		if (indicator === "L"){
+		    arrayObject.unshift(new Convolver(-position, hrtfDirectory+url, audioContext));
+		} else if (indicator === "R") {
+		    arrayObject.push(new Convolver(position, hrtfDirectory+url, audioContext));
+		} else {
+		    alert("cange name of hrtf sets\nname_A_P###_E_###\nname = set's name\nA = azimuth - P = position (L or R) - ### = degree\nE = elevation - ### = degree");
+		}
 	    } else {threshElements++};
 	});
     });
 }
-function getSound(obj, uploadedFile){   
-}
-
 $(document).ready(function(){
-    resizeSquare('#room', $(window).height-110);
+    resizeSquare('#room', $(window).height()-110);
     var roomSize = $("#room").width()  
     resizeSquare('.sound', $("#room").height()/10);
     resizeSquare('#head', $("#room").height()/10);

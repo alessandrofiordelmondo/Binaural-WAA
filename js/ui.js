@@ -1,7 +1,6 @@
 var roomSize;
 var headDeg = 0;
 var direction = 0;
-var objectPos = [];
 //resize the size of the object
 function resizeSquare(div, px){
     $(div).height(px);
@@ -33,7 +32,9 @@ function objectMov(div, visualSel = true, rotate = false){
 	    }else{
 	    	direction = objectRot(div, headDeg % 360)
 	    }
+
     	    objectPos = getObjPosition(".sound", "#head", "#room")
+
 	})
     }
     $(div).mousedown(function(e){
@@ -51,6 +52,7 @@ function objectMov(div, visualSel = true, rotate = false){
 	    var oY = e.clientY - iY;
 	    if (oX <= $(div).parent().width() - $(div).width() && oX >= 0){$(div).css({'left': oX + 'px'})};
 	    if (oY <= $(div).parent().height() - $(div).height() && oY >= 0){$(div).css({'top': oY + 'px'})};
+
     	    objectPos = getObjPosition(".sound", "#head", "#room")
 	    return false
     	}
@@ -74,35 +76,7 @@ function objectRot(div, degree){
     });
     return degree;
 }
-//get position of the objects
-function getObjPosition(classObject, head, room, headDirection = direction){	
-    var topH = $(head).position().top;
-    var leftH = $(head).position().left;
-    var sizeR = $(room).height() - $(classObject).height();
-    var pos = [[], [], [], []];
-    var i = 0;
-    $('.sound').map(function(){
-	var tPos = $("#"+this.id).position().top;
-	var lPos = $("#"+this.id).position().left;
-	var H = Math.abs(topH - tPos);
-	var W = Math.abs(leftH - lPos);
-	pos[i][0] = Math.sqrt(Math.pow(H, 2) + Math.pow(W, 2));	//distance
-	if (tPos > topH && lPos > leftH){
-	    pos[i][1] = (180 - (Math.asin(W/pos[i][0])*180/Math.PI)) - headDirection;
-	} else if (tPos > topH && lPos < leftH){
-	    pos[i][1] = ((Math.asin(W/pos[i][0])*180/Math.PI) + 180) - headDirection;
-	} else if (tPos < topH && lPos < leftH){
-	    pos[i][1] = (360 - (Math.asin(W/pos[i][0])*180/Math.PI)) - headDirection;
-	} else {
-	    pos[i][1] = Math.asin(W/pos[i][0])*180/Math.PI - headDirection;
-	}
-	if (pos[i][1] < 0){  pos[i][1] += 360; }
-	if (pos[i][1] > 180) { pos[i][1] = - (360 - pos[0][1])}
-	i++;
-    });
-    console.log(pos[0][1])
-    return pos
-}
+
 //object size and position reset in the resizing of the main window
 $(window).resize(function(){
     var wH = $(this).height()  

@@ -1,0 +1,30 @@
+MUST CHANGE:
+- link between object convolver <-> sound:
+the sound must have N gain inside the object linked for every convolver (each hrtf impulse);
+
+____sound______________		__convolver__
+		gain(1)	------>	hrtf(1).conv
+		gain(2)	------>	hrtf(2).conv
+sound		gain(3)	------>	hrtf(3).conv
+sounrce		...	------>	...
+		gain(N)	------>	hrtf(N).conv
+______________________		_____________
+where N is the number of hrtf impuse
+
+inside sound we must have a function like:
+
+function connectToHrtf(hrtfs){
+	//hrtfs is array with several convolverNode
+	len = hrtfs.length
+	for (var i = 0; i < len; i++){
+		gain[i] = cntx.createGain()
+		self.sound.connect(gain[i])
+		gain[i].connect(hrtfs[i].conv);
+	} 
+}
+
+and so, for each gain and each connection we must have different gain control with a function like:
+
+function setGain(val, N){
+	gain[N].gain.value = val;	//with the use of the ramp!!!
+}

@@ -22,6 +22,7 @@ function getHRTFs(arrayObject, phpLoader = "./php/get_file.php", hrtfDirectory =
 		}
 	    } else {threshElements++};
 	});
+	hrtfLen = hrtfs.length;	
     });
 }
 $(document).ready(function(){

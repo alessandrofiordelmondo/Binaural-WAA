@@ -15,7 +15,7 @@ function resetPosition(div, scale){
 	'top': divTop + 'px'}
     )
 }
-//function for move the sound object
+//move the sound object
 function objectMov(div, visualSel = true, rotate = false){
     var drag = false;
     var iX, iY;
@@ -32,8 +32,8 @@ function objectMov(div, visualSel = true, rotate = false){
 	    }else{
 	    	direction = objectRot(div, headDeg % 360)
 	    }
-
-    	    objectPos = getObjPosition(".sound", "#head", "#room")
+	    // change sound position when the head turns 
+    	    getObjPosition(".sound", "#head", "#room")
 
 	})
     }
@@ -53,7 +53,8 @@ function objectMov(div, visualSel = true, rotate = false){
 	    if (oX <= $(div).parent().width() - $(div).width() && oX >= 0){$(div).css({'left': oX + 'px'})};
 	    if (oY <= $(div).parent().height() - $(div).height() && oY >= 0){$(div).css({'top': oY + 'px'})};
 
-    	    objectPos = getObjPosition(".sound", "#head", "#room")
+	    // change sound position when the head or the sound objects moves
+    	    getObjPosition(".sound", "#head", "#room")
 	    return false
     	}
     })
@@ -64,6 +65,7 @@ function objectMov(div, visualSel = true, rotate = false){
 	e.cancelBubble = true;
     })
 }
+
 //Rotate object (only fo the head)
 function objectRot(div, degree){
    $({degrees: degree}).animate({degrees: degree}, {
@@ -79,17 +81,21 @@ function objectRot(div, degree){
 
 //object size and position reset in the resizing of the main window
 $(window).resize(function(){
+    ResetAllSize()
+})
+
+function ResetAllSize(){
     var wH = $(this).height()  
     var rH = $('#room').height();
     var scale = rH/roomSize;
     resizeSquare('#room', wH - 110);
-    resizeSquare('.sound', rH/10);
-    resizeSquare('#head', rH/10);
+    resizeSquare('.sound', rH/sizeRoom);
+    resizeSquare('#head', rH/sizeRoom);
     resetPosition("#s1", scale);
     resetPosition("#s2", scale);
     resetPosition("#s3", scale);
     resetPosition("#s4", scale);
     resetPosition("#head", scale);
     roomSize = rH;
-})
 
+}

@@ -3,6 +3,7 @@ var audioContext = new contextClass();
 var hrtfs = new Array();
 var hrtfLen;
 var sounds = new Array();
+
 //get HRTF set
 function getHRTFs(arrayObject, phpLoader = "./php/get_file.php", hrtfDirectory = '../HRTF/'){
     //arrayObject=	array to fill with hrtf convolever object
@@ -25,6 +26,21 @@ function getHRTFs(arrayObject, phpLoader = "./php/get_file.php", hrtfDirectory =
 	hrtfLen = hrtfs.length;	
     });
 }
+
+//load, connect and start sound when you choose a file from the html input
+function loadSound(soundArray, i, file){
+    //soundArray 	= array of bufferSource (in this case the "sounds" array);
+    //i			= array istance
+    //file 		= file loaded from html input
+    if (soundArray[i] != undefined){
+	soundArray[i].inputFile = file;
+	fromInputAudioLoader(soundArray[i].inputFile, soundArray[i].sound, soundArray[i].audioContext);
+    }else{
+	soundArray[i] = new SoundObject(file, audioContext);
+    }
+}
+
+// at the BEGINING
 $(document).ready(function(){
     resizeSquare('#room', $(window).height()-110);
     var roomSize = $("#room").width()  

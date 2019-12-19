@@ -6,7 +6,7 @@
 	<script src="./js/jquery-1.11.1.min.js"></script>
 	<script src="./js/util.js"></script>
 	<script src="./js/audioObject.js"></script>
-	<script src="./js/BinauralControlMov.js"></script>
+	<script src="./js/soundMov.js"></script>
 	<script src="./js/ui.js"></script>
 	<script src="./js/main.js"></script>
 	<title> Binaural-WAA </title>
@@ -16,38 +16,66 @@
 	    <b>a</b> to rotate the head on the left <br> 
 	    <b>b</b> to rotate the head on the right <br>
 	</p> 
-	<div class="inputDiv" id="i1"><input type="file" id="openfile1" 
-	    onchange="
-		if(sounds[0] != undefined){
-		    sounds[0].inputFile = this.files;
-		    fromInputAudioLoader(sounds[0].inputFile, sounds[0].sound, sounds[0].audioContext);
-		} else {
-		    sounds[0] = new SoundObject(this.files, audioContext);
-		}"/></div>
-	<div class="inputDiv" id="i2"><input type="file" id="openfile2"
-	    onchange="
-		if(sounds[1] != undefined){
-		    sounds[1].inputFile = this.files;
-		    fromInputAudioLoader(sounds[1].inputFile, sounds[1].sound, sounds[1].audioContext);
-		} else {
-		    sounds[1] = new SoundObject(this.files, audioContext);
-		}"/></div>
-	<div class="inputDiv" id="i3"><input type="file" id="openfile3"
-	    onchange="
-		if(sounds[2] != undefined){
-		    sounds[2].inputFile = this.files;
-		    fromInputAudioLoader(sounds[2].inputFile, sounds[2].sound, sounds[2].audioContext);
-		} else {
-		    sounds[2] = new SoundObject(this.files, audioContext);
-		}"/></div>
-	<div class="inputDiv" id="i4"><input type="file" id="openfile4"
-	    onchange="
-		if(sounds[3] != undefined){
-		    sounds[3].inputFile = this.files;
-		    fromInputAudioLoader(sounds[3].inputFile, sounds[3].sound, sounds[3].audioContext);
-		} else {
-		    sounds[3] = new SoundObject(this.files, audioContext);
-		}"/></div>
+	<div class="inputDiv" id="i1">
+	    <div>
+	    	<input type="file" class="fileInput" id="openfile1" 
+	    	    onchange=" loadSound(sounds, 0, this.files);"/>
+		<label for="openfile1"> Choose a sound </label>
+	    </div>
+	    <button class="button" type="button" onclick="
+		sounds[0].connectHRTF(hrtfs); sounds[0].start()">play</button>
+	    <button class="button" type="button" onclick="
+		sounds[0].stop()">stop</button>
+	</div>
+	<div class="inputDiv" id="i2">
+	    <div>
+	    	<input type="file" class="fileInput" id="openfile2" 
+	    	    onchange=" loadSound(sounds, 1, this.files);"/>
+		<label for="openfile2"> Choose a sound </label>
+	    </div>
+	    <button class="button" type="button" onclick="
+		sounds[1].connectHRTF(hrtfs); sounds[1].start()">play</button>
+	    <button class="button" type="button" onclick="
+		sounds[1].stop()">stop</button>
+	</div>
+	<div class="inputDiv" id="i3">
+	    <div>
+	    	<input type="file" class="fileInput" id="openfile3" 
+	    	    onchange=" loadSound(sounds, 2, this.files);"/>
+		<label for="openfile3"> Choose a sound </label>
+	    </div>
+	    <button class="button" type="button" onclick="
+		sounds[2].connectHRTF(hrtfs); sounds[2].start()">play</button>
+	    <button class="button" type="button" onclick="
+		sounds[2].stop()">stop</button>
+	</div>
+	<div class="inputDiv" id="i4">
+	    <div>
+	    	<input type="file" class="fileInput" id="openfile4" 
+	    	    onchange=" loadSound(sounds, 3, this.files);"/>
+		<label for="openfile4"> Choose a sound </label>
+	    </div>
+	    <button class="button" type="button" onclick="
+		sounds[3].connectHRTF(hrtfs); sounds[3].start()">play</button>
+	    <button class="button" type="button" onclick="
+		sounds[3].stop()">stop</button>
+	</div>
+	<div id="faderDiv">
+	    <center>
+		<input type="range" id="size" min="5" max="100" value="20" onchange="
+			document.getElementById('sizeValue').value=this.value;
+			sizeRoom = parseFloat(this.value);ResetAllSize();
+			getObjPosition('.sound', '#head', '#roomu');
+		" />
+		<input type="text" id="sizeValue" value="" onchange="
+			sizeRoom = parseFloat(this.value);ResetAllSize();	
+			getObjPosition('.sound', '#head', '#roomu');"/>
+		<p><b>room size in m</b></p>
+	    </center>
+	</div>
+	<div id="txt2">
+	   <p> 1 - choose a sound for each square; 2 - play each sound; 3 - choose size of the room; 4 - play and move the object in the square. </br> if you want to change the HRTF set you have to replace the file inside the folder <b>HRTF</B> in the same path of the <i>index.html</i>.</br> Every HRTF must have the name as following:</br> <b>NAME_A_P###_E_***<b></br><b> NAME </b>: HRTF set name (only non-numerical character);</br><b> A </b>: azimuth; </br><b> P </b>: position <i>L</i> or <i>R</i>;</br><b> ### </b>: degree from 0 to 180 for each side;</br><b> E </b>: elevation;</br><b> *** </b>: elevation degree;</br> In this case we have only an example and we don't use the elevation, but only the azimuth localization</p>
+	</div>
 	<!--main div-->
 	<div id="room">
 	    <div class="sound" id="s1"></div>
